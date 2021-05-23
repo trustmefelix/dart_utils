@@ -1,13 +1,15 @@
-T enumFromString<T>(List<T> enumValues, String value)
+import 'package:collection/collection.dart' show IterableExtension;
+
+T? enumFromString<T>(List<T> enumValues, String value)
 {
 if (value == null || enumValues == null) return null;
 
 return value.contains(".") ?
-    enumValues.singleWhere((x) => x.toString().toLowerCase() == value.toLowerCase(), orElse: () => null) :
-    enumValues.singleWhere((x) => enumToString(x).toLowerCase() == value.toLowerCase(), orElse: () => null);
+    enumValues.singleWhereOrNull((x) => x.toString().toLowerCase() == value.toLowerCase()) :
+    enumValues.singleWhereOrNull((x) => enumToString(x)!.toLowerCase() == value.toLowerCase());
 }
 
-String enumToString (enumItem)
+String? enumToString (enumItem)
 {
     if (enumItem == null) return null;
 
